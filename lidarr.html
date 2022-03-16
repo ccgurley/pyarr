@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LidarrAPI &mdash; pyarr  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ReadarrAPI" href="readarr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pyarr
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sonarr.html">SonarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radarr.html">RadarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readarr.html">ReadarrAPI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LidarrAPI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyarr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>LidarrAPI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/lidarr.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyarr.lidarr">
+<span id="lidarrapi"></span><h1>LidarrAPI<a class="headerlink" href="#module-pyarr.lidarr" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrSortKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyarr.lidarr.</span></span><span class="sig-name descname"><span class="pre">LidarrSortKeys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrSortKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrSortKeys" title="Permalink to this definition"></a></dt>
+<dd><p>Lidarr sort keys.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrArtistMonitor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyarr.lidarr.</span></span><span class="sig-name descname"><span class="pre">LidarrArtistMonitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrArtistMonitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrArtistMonitor" title="Permalink to this definition"></a></dt>
+<dd><p>Lidarr Monitor types for an artist music</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyarr.lidarr.</span></span><span class="sig-name descname"><span class="pre">LidarrAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI" title="Permalink to this definition"></a></dt>
+<dd><p>API wrapper for Lidarr endpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>RequestAPI</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – provides connection to API endpoint</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_root_folder">
+<span class="sig-name descname"><span class="pre">add_root_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaultTags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualityProfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadataProfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.add_root_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_root_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a root folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name for this root folder</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Location the files should be stored</p></li>
+<li><p><strong>defaultTags</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – list of default tag IDs</p></li>
+<li><p><strong>qualityProfile</strong> (<em>int</em>) – default quality profile ID</p></li>
+<li><p><strong>metadataProfile</strong> (<em>int</em>) – default metadata profile ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.lookup">
+<span class="sig-name descname"><span class="pre">lookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.lookup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.lookup" title="Permalink to this definition"></a></dt>
+<dd><p>Search for an artist / album / song</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>term</strong> (<em>str</em>) – Search term</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_artist">
+<span class="sig-name descname"><span class="pre">get_artist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_artist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_artist" title="Permalink to this definition"></a></dt>
+<dd><p>Get an artist by ID or get all artists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em><em> | </em><em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Artist ID. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_artist">
+<span class="sig-name descname"><span class="pre">add_artist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitored</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist_monitor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyarr.lidarr.LidarrArtistMonitor" title="pyarr.lidarr.LidarrArtistMonitor"><span class="pre">pyarr.lidarr.LidarrArtistMonitor</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">LidarrArtistMonitor.ALL_ALBUMS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist_search_for_missing_albums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.add_artist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_artist" title="Permalink to this definition"></a></dt>
+<dd><p>Adds an artist based on a search term, must be artist name or album/single
+by lidarr guid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search_term</strong> (<em>str</em>) – Artist name or album/single</p></li>
+<li><p><strong>root_dir</strong> (<em>str</em>) – Directory for music to be stored</p></li>
+<li><p><strong>quality_profile_id</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Quality profile id. Defaults to None.</p></li>
+<li><p><strong>metadata_profile_id</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Metadata profile <a href="#id1"><span class="problematic" id="id2">id_</span></a>. Defaults to None.</p></li>
+<li><p><strong>monitored</strong> (<em>bool</em><em>, </em><em>optional</em>) – monitor the artist. Defaults to True.</p></li>
+<li><p><strong>artist_monitor</strong> (<a class="reference internal" href="#pyarr.lidarr.LidarrArtistMonitor" title="pyarr.lidarr.LidarrArtistMonitor"><em>LidarrArtistMonitor</em></a><em>, </em><em>optional</em>) – [description]. Defaults to LidarrArtistMonitor.ALL_ALBUMS.</p></li>
+<li><p><strong>artist_search_for_missing_albums</strong> (<em>bool</em><em>, </em><em>optional</em>) – Search for missing albums by this artist. Defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_artist">
+<span class="sig-name descname"><span class="pre">upd_artist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.upd_artist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_artist" title="Permalink to this definition"></a></dt>
+<dd><p>Update an existing artist</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_artist()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – JSON data for the artist record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.delete_artist">
+<span class="sig-name descname"><span class="pre">delete_artist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.delete_artist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.delete_artist" title="Permalink to this definition"></a></dt>
+<dd><p>Delete an artist with the provided ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Artist ID to be deleted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.lookup_artist">
+<span class="sig-name descname"><span class="pre">lookup_artist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.lookup_artist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.lookup_artist" title="Permalink to this definition"></a></dt>
+<dd><p>Search for an Artist to add to the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>term</strong> (<em>str</em>) – search term to use for lookup</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_album">
+<span class="sig-name descname"><span class="pre">get_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">albumIds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreignAlbumId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allArtistAlbums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_album"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_album" title="Permalink to this definition"></a></dt>
+<dd><p>Get a specific album by ID, or get all albums</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>albumIds</strong> (<em>int</em><em> | </em><em>List</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – database album ids. Defaults to None.</p></li>
+<li><p><strong>artistId</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – database artist ids. Defaults to None.</p></li>
+<li><p><strong>foreignAlbumId</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – foreign album id. Defaults to None.</p></li>
+<li><p><strong>allArtistAlbums</strong> (<em>bool</em><em>, </em><em>optional</em>) – get all artists albums. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_album">
+<span class="sig-name descname"><span class="pre">add_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitored</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist_monitor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyarr.lidarr.LidarrArtistMonitor" title="pyarr.lidarr.LidarrArtistMonitor"><span class="pre">pyarr.lidarr.LidarrArtistMonitor</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">LidarrArtistMonitor.ALL_ALBUMS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist_search_for_missing_albums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.add_album"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_album" title="Permalink to this definition"></a></dt>
+<dd><p>Adds an album to Lidarr</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search_term</strong> (<em>str</em>) – name of the album to search for</p></li>
+<li><p><strong>root_dir</strong> (<em>str</em>) – location to store music</p></li>
+<li><p><strong>quality_profile_id</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Quality profile Id. Defaults to None.</p></li>
+<li><p><strong>metadata_profile_id</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Metadata profile Id. Defaults to None.</p></li>
+<li><p><strong>monitored</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the album be monitored. Defaults to True.</p></li>
+<li><p><strong>artist_monitor</strong> (<a class="reference internal" href="#pyarr.lidarr.LidarrArtistMonitor" title="pyarr.lidarr.LidarrArtistMonitor"><em>LidarrArtistMonitor</em></a><em>, </em><em>optional</em>) – what level to monitor the artist. Defaults to LidarrArtistMonitor.ALL_ALBUMS.</p></li>
+<li><p><strong>artist_search_for_missing_albums</strong> (<em>bool</em><em>, </em><em>optional</em>) – search for any missing albums by this artist. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_album">
+<span class="sig-name descname"><span class="pre">upd_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.upd_album"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_album" title="Permalink to this definition"></a></dt>
+<dd><p>Update an album</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – data ti update albums</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_album()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.delete_album">
+<span class="sig-name descname"><span class="pre">delete_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.delete_album"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.delete_album" title="Permalink to this definition"></a></dt>
+<dd><p>Delete an album with the provided ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Album ID to be deleted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.lookup_album">
+<span class="sig-name descname"><span class="pre">lookup_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.lookup_album"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.lookup_album" title="Permalink to this definition"></a></dt>
+<dd><p>Search for an Album to add to the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>term</strong> (<em>str</em>) – search term to use for lookup</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.post_command">
+<span class="sig-name descname"><span class="pre">post_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.post_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.post_command" title="Permalink to this definition"></a></dt>
+<dd><p>This function is not implemented</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_wanted">
+<span class="sig-name descname"><span class="pre">get_wanted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyarr.lidarr.LidarrSortKeys" title="pyarr.lidarr.LidarrSortKeys"><span class="pre">pyarr.lidarr.LidarrSortKeys</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">LidarrSortKeys.TITLE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'asc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_wanted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_wanted" title="Permalink to this definition"></a></dt>
+<dd><p>Get wanted albums that are missing or not meeting cutoff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Specific album ID to return. Defaults to None.</p></li>
+<li><p><strong>sort_key</strong> (<a class="reference internal" href="#pyarr.lidarr.LidarrSortKeys" title="pyarr.lidarr.LidarrSortKeys"><em>LidarrSortKeys</em></a><em>, </em><em>optional</em>) – id, title, ratings or quality. Defaults to LidarrSortKeys.TITLE.</p></li>
+<li><p><strong>page</strong> (<em>int</em><em>, </em><em>optional</em>) – Page number to return. Defaults to 1.</p></li>
+<li><p><strong>page_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of items per page. Defaults to 10.</p></li>
+<li><p><strong>sort_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Sort ascending or descending. Defaults to “asc”.</p></li>
+<li><p><strong>missing</strong> (<em>bool</em><em>, </em><em>optional</em>) – search for missing (True) or cutoff not met (False). Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_parse">
+<span class="sig-name descname"><span class="pre">get_parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_parse" title="Permalink to this definition"></a></dt>
+<dd><p>Return the music / artist with a matching filename</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>title</strong> (<em>str</em>) – file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_tracks">
+<span class="sig-name descname"><span class="pre">get_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumReleaseId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trackIds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Get tracks based on provided IDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artistId</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Artist ID. Defaults to None.</p></li>
+<li><p><strong>albumId</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Album ID. Defaults to None.</p></li>
+<li><p><strong>albumReleaseId</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Album Release ID. Defaults to None.</p></li>
+<li><p><strong>trackIds</strong> (<em>int</em><em> | </em><em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Track IDs. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_track_file">
+<span class="sig-name descname"><span class="pre">get_track_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trackFileIds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unmapped</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_track_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_track_file" title="Permalink to this definition"></a></dt>
+<dd><p>Get track files based on IDs, or get all unmapped files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artistId</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Artist database ID. Defaults to None.</p></li>
+<li><p><strong>albumId</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Album database ID. Defaults to None.</p></li>
+<li><p><strong>trackFileIds</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – specific file ids. Defaults to None.</p></li>
+<li><p><strong>unmapped</strong> (<em>bool</em><em>, </em><em>optional</em>) – get all unmapped filterExistingFiles. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>PyarrError</strong> – where no IDs or unmapped params provided</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_track_file">
+<span class="sig-name descname"><span class="pre">upd_track_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.upd_track_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_track_file" title="Permalink to this definition"></a></dt>
+<dd><p>Update an existing track file</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_track_file()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – updated data for track files</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.delete_track_file">
+<span class="sig-name descname"><span class="pre">delete_track_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.delete_track_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.delete_track_file" title="Permalink to this definition"></a></dt>
+<dd><p>Delete track files. Use integer for one file or list for mass deletion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ids</strong> (<em>int</em><em> | </em><em>list</em><em>[</em><em>int</em><em>]</em>) – single ID or list of IDs for files to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_metadata_profile">
+<span class="sig-name descname"><span class="pre">get_metadata_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_metadata_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_metadata_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Gets all metadata profiles or specific one with <a href="#id3"><span class="problematic" id="id4">id_</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – metadata profile id from database. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_metadata_profile">
+<span class="sig-name descname"><span class="pre">add_metadata_profile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.add_metadata_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_metadata_profile" title="Permalink to this definition"></a></dt>
+<dd><p>This function is not implemented</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_metadata_profile">
+<span class="sig-name descname"><span class="pre">upd_metadata_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.upd_metadata_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_metadata_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Update a metadata profile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – data containing metadata profile and changes</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_metadata_provider">
+<span class="sig-name descname"><span class="pre">get_metadata_provider</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_metadata_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_metadata_provider" title="Permalink to this definition"></a></dt>
+<dd><p>Get metadata provider config (settings/metadata)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_metadata_provider">
+<span class="sig-name descname"><span class="pre">upd_metadata_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.upd_metadata_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_metadata_provider" title="Permalink to this definition"></a></dt>
+<dd><p>Update metadata provider by providing json data update</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_metadata_provider()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – configuration data as json</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_queue">
+<span class="sig-name descname"><span class="pre">get_queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyarr.lidarr.LidarrSortKeys" title="pyarr.lidarr.LidarrSortKeys"><span class="pre">pyarr.lidarr.LidarrSortKeys</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">LidarrSortKeys.TIMELEFT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown_artists</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_artist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_album</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_queue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_queue" title="Permalink to this definition"></a></dt>
+<dd><p>Get the queue of download_release</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<em>int</em><em>, </em><em>optional</em>) – Which page to load. Defaults to 1.</p></li>
+<li><p><strong>page_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of items per page. Defaults to 10.</p></li>
+<li><p><strong>sort_key</strong> (<a class="reference internal" href="#pyarr.lidarr.LidarrSortKeys" title="pyarr.lidarr.LidarrSortKeys"><em>LidarrSortKeys</em></a><em>, </em><em>optional</em>) – Key to sort by. Defaults to LidarrSortKeys.TIMELEFT.</p></li>
+<li><p><strong>unknown_artists</strong> (<em>bool</em><em>, </em><em>optional</em>) – include unknown artists. Defaults to False.</p></li>
+<li><p><strong>include_artist</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include Artists. Defaults to False.</p></li>
+<li><p><strong>include_album</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include albums. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_queue_details">
+<span class="sig-name descname"><span class="pre">get_queue_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumIds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_artist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_album</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_queue_details"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_queue_details" title="Permalink to this definition"></a></dt>
+<dd><p>Get queue details for artist or album</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artistId</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Artist database ID. Defaults to None.</p></li>
+<li><p><strong>albumIds</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Album database ID. Defaults to None.</p></li>
+<li><p><strong>include_artist</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include the artist. Defaults to False.</p></li>
+<li><p><strong>include_album</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include the album. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_release">
+<span class="sig-name descname"><span class="pre">get_release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_release"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_release" title="Permalink to this definition"></a></dt>
+<dd><p>Search indexers for specified fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artistId</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Artist ID from DB. Defaults to None.</p></li>
+<li><p><strong>albumId</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Album IT from Database. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_rename">
+<span class="sig-name descname"><span class="pre">get_rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_rename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_rename" title="Permalink to this definition"></a></dt>
+<dd><p>Get files matching specified id that are not properly renamed yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artistId</strong> (<em>int</em>) – Database ID for Artists</p></li>
+<li><p><strong>albumId</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Album ID. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_manual_import">
+<span class="sig-name descname"><span class="pre">get_manual_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">downloadId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filterExistingFiles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replaceExistingFiles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_manual_import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_manual_import" title="Permalink to this definition"></a></dt>
+<dd><p>Gets a manual import list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>downloadId</strong> (<em>str</em>) – Download IDs</p></li>
+<li><p><strong>artistId</strong> (<em>int</em><em>, </em><em>optional</em>) – Artist Database ID. Defaults to 0.</p></li>
+<li><p><strong>folder</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – folder name. Defaults to None.</p></li>
+<li><p><strong>filterExistingFiles</strong> (<em>bool</em><em>, </em><em>optional</em>) – filter files. Defaults to True.</p></li>
+<li><p><strong>replaceExistingFiles</strong> (<em>bool</em><em>, </em><em>optional</em>) – replace files. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_manual_import">
+<span class="sig-name descname"><span class="pre">upd_manual_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.upd_manual_import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_manual_import" title="Permalink to this definition"></a></dt>
+<dd><p>Update a manual import</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_manual_import()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – json data containing changes</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_retag">
+<span class="sig-name descname"><span class="pre">get_retag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyarr/lidarr.html#LidarrAPI.get_retag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_retag" title="Permalink to this definition"></a></dt>
+<dd><p>Get Retag</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artistId</strong> (<em>int</em>) – ID for the  artist</p></li>
+<li><p><strong>Union</strong><strong>[</strong><strong>int</strong> (<em>albumId</em>) – ID foir the album. Defaults to None.</p></li>
+<li><p><strong>None</strong><strong>]</strong> – ID foir the album. Defaults to None.</p></li>
+<li><p><strong>optional</strong><strong>)</strong> – ID foir the album. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_download_client">
+<span class="sig-name descname"><span class="pre">add_download_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_download_client" title="Permalink to this definition"></a></dt>
+<dd><p>Add a download client based on the schema information supplied</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Recommended to be used in conjunction with get_download_client_schema()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – dictionary with download client schema and settings</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_import_list">
+<span class="sig-name descname"><span class="pre">add_import_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_import_list" title="Permalink to this definition"></a></dt>
+<dd><p>This is not implemented yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.add_notifications">
+<span class="sig-name descname"><span class="pre">add_notifications</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.add_notifications" title="Permalink to this definition"></a></dt>
+<dd><p>This is not implemented yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.basic_auth">
+<span class="sig-name descname"><span class="pre">basic_auth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.basic_auth" title="Permalink to this definition"></a></dt>
+<dd><p>If you have basic authentication setup you will need to pass your
+username and passwords to the requests.auth.HTTPBASICAUTH() method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Username for basic auth.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Password for basic auth.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>HTTP Auth object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.create_tag">
+<span class="sig-name descname"><span class="pre">create_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.create_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a new tag</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>label</strong> (<em>str</em>) – Tag name / label</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_blocklist">
+<span class="sig-name descname"><span class="pre">del_blocklist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_blocklist" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a specific release (the id provided) from the blocklist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – blocklist id from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_blocklist_bulk">
+<span class="sig-name descname"><span class="pre">del_blocklist_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_blocklist_bulk" title="Permalink to this definition"></a></dt>
+<dd><p>Delete blocked releases in bulk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – blocklists that should be deleted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_download_client">
+<span class="sig-name descname"><span class="pre">del_download_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_download_client" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a download client by database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – download client database id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_import_list">
+<span class="sig-name descname"><span class="pre">del_import_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_import_list" title="Permalink to this definition"></a></dt>
+<dd><p>Delete an import list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Import list database id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_indexer">
+<span class="sig-name descname"><span class="pre">del_indexer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_indexer" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a specific indexer from the blocklist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – indexer id from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_notification">
+<span class="sig-name descname"><span class="pre">del_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_notification" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a notification by its database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Database id of notification</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>201 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_quality_profile">
+<span class="sig-name descname"><span class="pre">del_quality_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_quality_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a specific quality profile from the blocklist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – quality profile id from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_queue">
+<span class="sig-name descname"><span class="pre">del_queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_from_client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blacklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_queue" title="Permalink to this definition"></a></dt>
+<dd><p>Remove an item from the queue and optionally blacklist it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – id of the item to be removed</p></li>
+<li><p><strong>remove_from_client</strong> (<em>bool</em><em>, </em><em>optional</em>) – Remove the item from the client. Defaults to True.</p></li>
+<li><p><strong>blacklist</strong> (<em>bool</em><em>, </em><em>optional</em>) – Add the item to the blacklist. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_root_folder">
+<span class="sig-name descname"><span class="pre">del_root_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_root_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Delete root folder with specified id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_id</strong> (<em>int</em>) – Root folder id from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.del_tag">
+<span class="sig-name descname"><span class="pre">del_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.del_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Delete the tag with the given ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Database id of tag</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>{}</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_backup">
+<span class="sig-name descname"><span class="pre">get_backup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_backup" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the list of available backups</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_blocklist">
+<span class="sig-name descname"><span class="pre">get_blocklist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'descending'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_blocklist" title="Permalink to this definition"></a></dt>
+<dd><p>Returns blocked releases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<em>int</em><em>, </em><em>optional</em>) – Page to be returned. Defaults to 1.</p></li>
+<li><p><strong>page_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of results per page. Defaults to 10.</p></li>
+<li><p><strong>sort_direction</strong> (<em>str</em><em>, </em><em>optional</em>) – Direction to sort items. Defaults to “descending”.</p></li>
+<li><p><strong>sort_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Field to sort by. Defaults to “date”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_calendar">
+<span class="sig-name descname"><span class="pre">get_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unmonitored</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_calendar" title="Permalink to this definition"></a></dt>
+<dd><p>Gets upcoming releases by monitored, if start/end are not
+supplied, today and tomorrow will be returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_date</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">datetime</span></code>, optional) – ISO8601 start datetime. Defaults to None.</p></li>
+<li><p><strong>end_date</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">datetime</span></code>, optional) – ISO8601 end datetime. Defaults to None.</p></li>
+<li><p><strong>unmonitored</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include unmonitored movies. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_config_download_client">
+<span class="sig-name descname"><span class="pre">get_config_download_client</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_config_download_client" title="Permalink to this definition"></a></dt>
+<dd><p>Gets download client page configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_config_host">
+<span class="sig-name descname"><span class="pre">get_config_host</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_config_host" title="Permalink to this definition"></a></dt>
+<dd><p>Get General/Host settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_config_naming">
+<span class="sig-name descname"><span class="pre">get_config_naming</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_config_naming" title="Permalink to this definition"></a></dt>
+<dd><p>Get Settings for file and folder naming.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_config_ui">
+<span class="sig-name descname"><span class="pre">get_config_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_config_ui" title="Permalink to this definition"></a></dt>
+<dd><p>Query Radarr for UI settings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_disk_space">
+<span class="sig-name descname"><span class="pre">get_disk_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_disk_space" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Query disk usage information</dt><dd><p>System &gt; Status</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_download_client">
+<span class="sig-name descname"><span class="pre">get_download_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_download_client" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of all the download clients or a single client by its database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – Download client database id. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_download_client_schema">
+<span class="sig-name descname"><span class="pre">get_download_client_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">implementation_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_download_client_schema" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the schemas for the different download Clients</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>implementation</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Client implementation name. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_health">
+<span class="sig-name descname"><span class="pre">get_health</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_health" title="Permalink to this definition"></a></dt>
+<dd><p>Query radarr for health information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_history">
+<span class="sig-name descname"><span class="pre">get_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'desc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_history" title="Permalink to this definition"></a></dt>
+<dd><p>Gets history (grabs/failures/completed)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sort_key</strong> (<em>str</em><em>, </em><em>optional</em>) – series.title or date. Defaults to “date”.</p></li>
+<li><p><strong>page</strong> (<em>int</em><em>, </em><em>optional</em>) – Page number to return. Defaults to 1.</p></li>
+<li><p><strong>page_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of items per page. Defaults to 10.</p></li>
+<li><p><strong>sort_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Direction to sort the items. Defaults to “desc”.</p></li>
+<li><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – Filter to a specific episode ID. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_import_list">
+<span class="sig-name descname"><span class="pre">get_import_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_import_list" title="Permalink to this definition"></a></dt>
+<dd><p>Query for all lists or a single list by its database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – Import list database id. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_indexer">
+<span class="sig-name descname"><span class="pre">get_indexer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_indexer" title="Permalink to this definition"></a></dt>
+<dd><p>Get all indexers or specific by <a href="#id5"><span class="problematic" id="id6">id_</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – database if of indexer to return. Defaults to 1None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_log">
+<span class="sig-name descname"><span class="pre">get_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'desc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'All'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_log" title="Permalink to this definition"></a></dt>
+<dd><p>Gets logs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<em>int</em><em>, </em><em>optional</em>) – Specifiy page to return. Defaults to 1.</p></li>
+<li><p><strong>page_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of items per page. Defaults to 10.</p></li>
+<li><p><strong>sort_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Field to sort by. Defaults to “time”.</p></li>
+<li><p><strong>sort_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Direction to sort. Defaults to “desc”.</p></li>
+<li><p><strong>filter_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Key to filter by. Defaults to None.</p></li>
+<li><p><strong>filter_value</strong> (<em>str</em><em>, </em><em>optional</em>) – Value of the filter. Defaults to “All”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_media_management">
+<span class="sig-name descname"><span class="pre">get_media_management</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_media_management" title="Permalink to this definition"></a></dt>
+<dd><p>Get media managemnet configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Get all metadata consumer settings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_notification">
+<span class="sig-name descname"><span class="pre">get_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_notification" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of all notification services, or single by ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Notification ID. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_notification_schema">
+<span class="sig-name descname"><span class="pre">get_notification_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_notification_schema" title="Permalink to this definition"></a></dt>
+<dd><p>Get possible notification connections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_quality_definition">
+<span class="sig-name descname"><span class="pre">get_quality_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_quality_definition" title="Permalink to this definition"></a></dt>
+<dd><p>Gets all quality definitions or specific one by ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – Import list database id. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_quality_profile">
+<span class="sig-name descname"><span class="pre">get_quality_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_quality_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Gets all quality profiles or specific one with <a href="#id7"><span class="problematic" id="id8">id_</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – quality profile id from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_remote_path_mapping">
+<span class="sig-name descname"><span class="pre">get_remote_path_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_remote_path_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Get remote path mappings for downloads Directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – ID for specific record. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_root_folder">
+<span class="sig-name descname"><span class="pre">get_root_folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_root_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Get list of root folders, free space and any unmappedFolders</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_system_status">
+<span class="sig-name descname"><span class="pre">get_system_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_system_status" title="Permalink to this definition"></a></dt>
+<dd><p>Returns system status</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_tag">
+<span class="sig-name descname"><span class="pre">get_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all tags or specific tag by database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – Database id for tag. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_tag_detail">
+<span class="sig-name descname"><span class="pre">get_tag_detail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_tag_detail" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all tags or specific tag by database id with detailed information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em><em>, </em><em>optional</em>) – Database id for tag. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_task">
+<span class="sig-name descname"><span class="pre">get_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_task" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of tasks, or specify a task ID to return single task</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – ID for task</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.get_update">
+<span class="sig-name descname"><span class="pre">get_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.get_update" title="Permalink to this definition"></a></dt>
+<dd><p>Will return a list of recent updated to Radarr</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.request_del">
+<span class="sig-name descname"><span class="pre">request_del</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ver_uri</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.request_del" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper on any delete requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to API endpoint e.g. /api/manualimport</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – URL Parameters to send with the request. Defaults to None.</p></li>
+<li><p><strong>data</strong> (<em>dict</em><em>, </em><em>optional</em>) – Payload to send with request. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Response object from requests</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.request_get">
+<span class="sig-name descname"><span class="pre">request_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ver_uri</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.request_get" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper on any get requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to API endpoint e.g. /api/manualimport</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – URL Parameters to send with the request. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Response object from requests</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.request_post">
+<span class="sig-name descname"><span class="pre">request_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ver_uri</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.request_post" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper on any post requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to API endpoint e.g. /api/manualimport</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – URL Parameters to send with the request. Defaults to None.</p></li>
+<li><p><strong>data</strong> (<em>dict</em><em>, </em><em>optional</em>) – Payload to send with request. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Response object from requests</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.request_put">
+<span class="sig-name descname"><span class="pre">request_put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ver_uri</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.request_put" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper on any put requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to API endpoint e.g. /api/manualimport</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – URL Parameters to send with the request. Defaults to None.</p></li>
+<li><p><strong>data</strong> (<em>dict</em><em>, </em><em>optional</em>) – Payload to send with request. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Response object from requests</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_config_host">
+<span class="sig-name descname"><span class="pre">upd_config_host</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_config_host" title="Permalink to this definition"></a></dt>
+<dd><p>Edit General/Host settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – data to bu updated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_config_naming">
+<span class="sig-name descname"><span class="pre">upd_config_naming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_config_naming" title="Permalink to this definition"></a></dt>
+<dd><p>Edit Settings for file and folder naming.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – data to be updated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_config_ui">
+<span class="sig-name descname"><span class="pre">upd_config_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_config_ui" title="Permalink to this definition"></a></dt>
+<dd><p>Edit one or many UI settings and save to to the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – data to be Updated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_download_client">
+<span class="sig-name descname"><span class="pre">upd_download_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_download_client" title="Permalink to this definition"></a></dt>
+<dd><p>Edit a downloadclient by database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Download client database id</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – data to be updated within download client</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_import_list">
+<span class="sig-name descname"><span class="pre">upd_import_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_import_list" title="Permalink to this definition"></a></dt>
+<dd><p>Edit an importlist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Import list database id</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – data to be updated within the import list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_indexer">
+<span class="sig-name descname"><span class="pre">upd_indexer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_indexer" title="Permalink to this definition"></a></dt>
+<dd><p>Edit a Indexer by database id</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_indexer()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Indexer database id</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – data to be updated within Indexer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_notification">
+<span class="sig-name descname"><span class="pre">upd_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_notification" title="Permalink to this definition"></a></dt>
+<dd><p>Edit notification by database id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Database id of notification</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – data that requires updating</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>200 Ok, 401 Unauthorized</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_quality_definition">
+<span class="sig-name descname"><span class="pre">upd_quality_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_quality_definition" title="Permalink to this definition"></a></dt>
+<dd><p>Update the quality definitions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_quality_definition()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – ID of definition to update</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – All parameters to update</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_quality_profile">
+<span class="sig-name descname"><span class="pre">upd_quality_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_quality_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Update the quality profile data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be used in conjunction with get_quality_profile()</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Profile ID to Update</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – All parameters to update</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyarr.lidarr.LidarrAPI.upd_tag">
+<span class="sig-name descname"><span class="pre">upd_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyarr.lidarr.LidarrAPI.upd_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Update an existing tag</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You should perform a get_tag() and submit the full body with changes</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Database id of tag</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – tag name / label</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="readarr.html" class="btn btn-neutral float-left" title="ReadarrAPI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Steven Marks, TotalDebug.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

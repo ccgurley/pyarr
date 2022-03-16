@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyarr.radarr &mdash; pyarr  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> pyarr
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../sonarr.html">SonarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../radarr.html">RadarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readarr.html">ReadarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lidarr.html">LidarrAPI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyarr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pyarr.radarr</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyarr.radarr</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseArrAPI</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">PAGE</span><span class="p">,</span> <span class="n">PAGE_SIZE</span>
+
+
+<div class="viewcode-block" id="RadarrAPI"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI">[docs]</a><span class="k">class</span> <span class="nc">RadarrAPI</span><span class="p">(</span><span class="n">BaseArrAPI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;API wrapper for Radarr endpoints.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        RequestAPI (:obj:`str`): provides connection to API endpoint</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise Readarr API</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            host_url (str): URL for Readarr</span>
+<span class="sd">            api_key (str): API key for Readarr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ver_uri</span> <span class="o">=</span> <span class="s2">&quot;/v3&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">host_url</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">ver_uri</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_movie_json</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">db_id</span><span class="p">,</span>
+        <span class="n">quality_profile_id</span><span class="p">,</span>
+        <span class="n">root_dir</span><span class="p">,</span>
+        <span class="n">monitored</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">search_for_movie</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tmdb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Searches for movie on tmdb and returns Movie json to add.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            db_id (str): imdb or tmdb id</span>
+<span class="sd">            quality_profile_id (int): ID of the quality profile the movie will use</span>
+<span class="sd">            root_dir (str): location of the root DIR</span>
+<span class="sd">            monitored (bool, optional): should the movie be monitored. Defaults to True.</span>
+<span class="sd">            search_for_movie (bool, optional): Should we search for the movie. Defaults to True.</span>
+<span class="sd">            tmdb (bool, optional): Use TMDB IDs. Set to False to use IMDB. Defaults to True.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: [description]</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Movie JSON for adding a movie to radarr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tmdb</span><span class="p">:</span>
+            <span class="n">movie</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_movie_by_tmdb_id</span><span class="p">(</span><span class="n">db_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">movie</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_movie_by_imdb_id</span><span class="p">(</span><span class="n">db_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">movie</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Movie Doesn&#39;t Exist&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">movie</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;rootFolderPath&quot;</span><span class="p">:</span> <span class="n">root_dir</span><span class="p">,</span>
+            <span class="s2">&quot;qualityProfileId&quot;</span><span class="p">:</span> <span class="n">quality_profile_id</span><span class="p">,</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">movie</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;tmdbId&quot;</span><span class="p">:</span> <span class="n">movie</span><span class="p">[</span><span class="s2">&quot;tmdbId&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="n">movie</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;titleSlug&quot;</span><span class="p">:</span> <span class="n">movie</span><span class="p">[</span><span class="s2">&quot;titleSlug&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;monitored&quot;</span><span class="p">:</span> <span class="n">monitored</span><span class="p">,</span>
+            <span class="s2">&quot;addOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;searchForMovie&quot;</span><span class="p">:</span> <span class="n">search_for_movie</span><span class="p">},</span>
+        <span class="p">}</span>
+
+    <span class="c1">## MOVIE</span>
+
+    <span class="c1"># GET /movie</span>
+<div class="viewcode-block" id="RadarrAPI.get_movie"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_movie">[docs]</a>    <span class="k">def</span> <span class="nf">get_movie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># sourcery skip: class-extract-method</span>
+        <span class="sd">&quot;&quot;&quot;Returns all movies in the database, or returns a movie with a specific TMDB ID.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int, optional): TMDB Id of Movies. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: List of Movies from Radarr database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">id_</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;tmdbId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">id_</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># POST /movie</span>
+<div class="viewcode-block" id="RadarrAPI.add_movie"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.add_movie">[docs]</a>    <span class="k">def</span> <span class="nf">add_movie</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">db_id</span><span class="p">,</span>
+        <span class="n">quality_profile_id</span><span class="p">,</span>
+        <span class="n">root_dir</span><span class="p">,</span>
+        <span class="n">monitored</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">search_for_movie</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tmdb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a movie to the database</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            db_id (str): IMDB or TMDB ID</span>
+<span class="sd">            quality_profile_id (int): ID of the quality profile the movie will use</span>
+<span class="sd">            root_dir (str): location of the root DIR</span>
+<span class="sd">            monitored (bool, optional): should the movie be monitored. Defaults to True.</span>
+<span class="sd">            search_for_movie (bool, optional): Should we search for the movie. Defaults to True.</span>
+<span class="sd">            tmdb (bool, optional): Use TMDB IDs. Set to False to use IMDB. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">movie_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_movie_json</span><span class="p">(</span>
+            <span class="n">db_id</span><span class="p">,</span> <span class="n">quality_profile_id</span><span class="p">,</span> <span class="n">root_dir</span><span class="p">,</span> <span class="n">monitored</span><span class="p">,</span> <span class="n">search_for_movie</span><span class="p">,</span> <span class="n">tmdb</span>
+        <span class="p">)</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">movie_json</span><span class="p">)</span></div>
+
+    <span class="c1"># PUT /movie</span>
+<div class="viewcode-block" id="RadarrAPI.upd_movie"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.upd_movie">[docs]</a>    <span class="k">def</span> <span class="nf">upd_movie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">move_files</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates a movie in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict): Dictionary containing an object obtained from get_movie()</span>
+<span class="sd">            move_files (bool, optional): Have radarr move files when updating. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;moveFiles&quot;</span><span class="p">:</span> <span class="n">move_files</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /movie/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.get_movie_by_movie_id"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_movie_by_movie_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_movie_by_movie_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a movie by the Radarr database ID</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Database Id of movie to return</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Movie data if present in database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;movie/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1"># DELETE /movie/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.del_movie"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.del_movie">[docs]</a>    <span class="k">def</span> <span class="nf">del_movie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">delete_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_exclusion</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete a single movie by database id.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Database Id of movie to delete.</span>
+<span class="sd">            delete_files (bool, optional): Delete movie files when deleting movies. Defaults to False.</span>
+<span class="sd">            add_exclusion (bool, optional): Add deleted movies to List Exclusions. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;deleteFiles&quot;</span><span class="p">:</span> <span class="n">delete_files</span><span class="p">,</span> <span class="s2">&quot;addExclusion&quot;</span><span class="p">:</span> <span class="n">add_exclusion</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;movie/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /movie/lookup</span>
+<div class="viewcode-block" id="RadarrAPI.lookup_movie"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.lookup_movie">[docs]</a>    <span class="k">def</span> <span class="nf">lookup_movie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">term</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search for a movie to add to the database (Uses TMDB for search results)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            term (str): search term to use for lookup</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: List of movies found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">term</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie/lookup&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /movie/lookup</span>
+<div class="viewcode-block" id="RadarrAPI.lookup_movie_by_tmdb_id"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.lookup_movie_by_tmdb_id">[docs]</a>    <span class="k">def</span> <span class="nf">lookup_movie_by_tmdb_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search for movie by TMDB ID</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (str): TMDB ID</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: List of movies found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;tmdb:</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie/lookup&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /movie/lookup</span>
+<div class="viewcode-block" id="RadarrAPI.lookup_movie_by_imdb_id"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.lookup_movie_by_imdb_id">[docs]</a>    <span class="k">def</span> <span class="nf">lookup_movie_by_imdb_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search for movie by IMDB ID</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (str): IMDB ID</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: List of movies found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;imdb:</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie/lookup&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># PUT /movie/editor</span>
+<div class="viewcode-block" id="RadarrAPI.upd_movies"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.upd_movies">[docs]</a>    <span class="k">def</span> <span class="nf">upd_movies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The Updates operation allows to edit properties of multiple movies at once</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict): Updated movie information</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie/editor&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># DELETE /movie/editor</span>
+<div class="viewcode-block" id="RadarrAPI.del_movies"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.del_movies">[docs]</a>    <span class="k">def</span> <span class="nf">del_movies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The delete operation allows mass deletion of movies (and optionally files)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict): dictionary of movies to be deleted::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                    &quot;movieIds&quot;: [</span>
+<span class="sd">                        0</span>
+<span class="sd">                    ],</span>
+<span class="sd">                    &quot;deleteFIles&quot;: true,</span>
+<span class="sd">                    &quot;addImportExclusion&quot;: true</span>
+<span class="sd">                }</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie/editor&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># POST /movie/import</span>
+<div class="viewcode-block" id="RadarrAPI.import_movies"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.import_movies">[docs]</a>    <span class="k">def</span> <span class="nf">import_movies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The movie import endpoint is used by the bulk import view in Radarr UI. It allows movies to be bulk added to the Radarr database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict): dictionary of all movies to be imported</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;movie/import&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1">## MOVIEFILE</span>
+
+    <span class="c1"># GET /moviefile</span>
+<div class="viewcode-block" id="RadarrAPI.get_movie_files_by_movie_id"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_movie_files_by_movie_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_movie_files_by_movie_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a movie file object by Movie database id.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Movie database id</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Movie file information if exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;movieid&quot;</span><span class="p">:</span> <span class="n">id_</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;moviefile&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /moviefile</span>
+<div class="viewcode-block" id="RadarrAPI.get_movie_files"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_movie_files">[docs]</a>    <span class="k">def</span> <span class="nf">get_movie_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">moviefile_ids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get movie file information for multiple movie files</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            moviefile_ids (array): an array of movie file ids</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: List of movie files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;moviefileids&quot;</span><span class="p">:</span> <span class="n">moviefile_ids</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;moviefile&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /moviefile/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.get_movie_file"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_movie_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_movie_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get movie file by database id</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): movie file id</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: movie file information</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;moviefile/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1"># DELETE /moviefile/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.del_movie_file"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.del_movie_file">[docs]</a>    <span class="k">def</span> <span class="nf">del_movie_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Allows for deletion of a moviefile by its database id.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Movie file id</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;moviefile/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span>
+            <span class="n">path</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># GET /history/movie</span>
+<div class="viewcode-block" id="RadarrAPI.get_movie_history"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_movie_history">[docs]</a>    <span class="k">def</span> <span class="nf">get_movie_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get history for a given movie in database by its database id</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Database id of movie</span>
+<span class="sd">            event_type (int, optional): History event type to retrieve. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;movieId&quot;</span><span class="p">:</span> <span class="n">id_</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">event_type</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;eventType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_type</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;history/movie&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1">## BLACKLIST</span>
+
+    <span class="c1"># GET /blacklist/movie</span>
+<div class="viewcode-block" id="RadarrAPI.get_blacklist_by_movie_id"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_blacklist_by_movie_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_blacklist_by_movie_id</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">id_</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves blacklisted releases that are tied to a given movie in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Movie id from Database</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;movieId&quot;</span><span class="p">:</span> <span class="n">id_</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;blacklist/movie&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1">## QUEUE</span>
+
+    <span class="c1"># GET /queue</span>
+<div class="viewcode-block" id="RadarrAPI.get_queue"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_queue">[docs]</a>    <span class="k">def</span> <span class="nf">get_queue</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">page</span><span class="o">=</span><span class="n">PAGE</span><span class="p">,</span>
+        <span class="n">page_size</span><span class="o">=</span><span class="n">PAGE_SIZE</span><span class="p">,</span>
+        <span class="n">sort_direction</span><span class="o">=</span><span class="s2">&quot;ascending&quot;</span><span class="p">,</span>
+        <span class="n">sort_key</span><span class="o">=</span><span class="s2">&quot;timeLeft&quot;</span><span class="p">,</span>
+        <span class="n">include_unknown_movie_items</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a json object list of items in the queue</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            page (int, optional): Page to be returned. Defaults to 1.</span>
+<span class="sd">            page_size (int, optional): Number of results per page. Defaults to 20.</span>
+<span class="sd">            sort_direction (str, optional): Direction to sort items. Defaults to &quot;ascending&quot;.</span>
+<span class="sd">            sort_key (str, optional): Field to sort by. Defaults to &quot;timeLeft&quot;.</span>
+<span class="sd">            include_unknown_movie_items (bool, optional): Include unknown movie items. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="n">page_size</span><span class="p">,</span>
+            <span class="s2">&quot;sortDirection&quot;</span><span class="p">:</span> <span class="n">sort_direction</span><span class="p">,</span>
+            <span class="s2">&quot;sortKey&quot;</span><span class="p">:</span> <span class="n">sort_key</span><span class="p">,</span>
+            <span class="s2">&quot;includeUnknownMovieItems&quot;</span><span class="p">:</span> <span class="n">include_unknown_movie_items</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;queue&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># DELETE /queue/bulk</span>
+<div class="viewcode-block" id="RadarrAPI.del_queue_bulk"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.del_queue_bulk">[docs]</a>    <span class="k">def</span> <span class="nf">del_queue_bulk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">remove_from_client</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blacklist</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove multiple items from queue by their ids</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict): Dictionary of IDs to be removed::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                &quot;ids&quot;: [</span>
+<span class="sd">                    0</span>
+<span class="sd">                ]</span>
+<span class="sd">                }</span>
+
+<span class="sd">            remove_from_client (bool, optional): Remove the items from the client. Defaults to True.</span>
+<span class="sd">            blacklist (bool, optional): Add the items to the blacklist. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 ok, 401 invalid api key</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;removeFromClient&quot;</span><span class="p">:</span> <span class="n">remove_from_client</span><span class="p">,</span> <span class="s2">&quot;blacklist&quot;</span><span class="p">:</span> <span class="n">blacklist</span><span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;queue/bulk&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /queue/details</span>
+<div class="viewcode-block" id="RadarrAPI.get_queue_details"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_queue_details">[docs]</a>    <span class="k">def</span> <span class="nf">get_queue_details</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">include_movie</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get details of all items in queue</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            include_movie (bool, optional): Include movie object if linked. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;includeMovie&quot;</span><span class="p">:</span> <span class="n">include_movie</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;queue/details&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /queue/status</span>
+<div class="viewcode-block" id="RadarrAPI.get_queue_status"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_queue_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_queue_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stats on items in queue</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;queue/status&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1"># POST /queue/grab/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.force_grab_queue_item"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.force_grab_queue_item">[docs]</a>    <span class="k">def</span> <span class="nf">force_grab_queue_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform a Radarr &quot;force grab&quot; on a pending queue item by its ID.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): queue item id from database.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 ok, 401 Invalid API Key</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;queue/grab/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1">## INDEXER</span>
+
+    <span class="c1"># GET /indexer and /indexer/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.get_indexer"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_indexer">[docs]</a>    <span class="k">def</span> <span class="nf">get_indexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all indexers or a single indexer by its database id.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int, optional): indexer database id. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;indexer/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">id_</span> <span class="k">else</span> <span class="s2">&quot;indexer&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1"># PUT /indexer/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.upd_indexer"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.upd_indexer">[docs]</a>    <span class="k">def</span> <span class="nf">upd_indexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Edit an indexer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Database id of indexer</span>
+<span class="sd">            data (dict): information to be changed within the indexer</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;indexer/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># DELETE /indexer/{id}</span>
+<div class="viewcode-block" id="RadarrAPI.del_indexer"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.del_indexer">[docs]</a>    <span class="k">def</span> <span class="nf">del_indexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete indexer by database id</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): DAtabase id of the indexer</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: 200 Ok, 401 Unauthorized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;indexer/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1">## COMMAND</span>
+
+    <span class="c1"># POST /command</span>
+<div class="viewcode-block" id="RadarrAPI.post_command"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.post_command">[docs]</a>    <span class="k">def</span> <span class="nf">post_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Performs any of the predetermined Radarr command routines.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            For command names and kwargs:</span>
+<span class="sd">            See https://radarr.video/docs/api/#/Command/post-command</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): Name of the command to be run</span>
+<span class="sd">            **kwargs: additional parameters for specific commands</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;command&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1">## CUSTOM FILTERS</span>
+
+    <span class="c1"># GET /customfilter</span>
+<div class="viewcode-block" id="RadarrAPI.get_custom_filter"><a class="viewcode-back" href="../../radarr.html#pyarr.radarr.RadarrAPI.get_custom_filter">[docs]</a>    <span class="k">def</span> <span class="nf">get_custom_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Query Radarr for custom filters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;customfilter&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Steven Marks, TotalDebug.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

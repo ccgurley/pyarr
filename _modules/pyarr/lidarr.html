@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyarr.lidarr &mdash; pyarr  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> pyarr
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../sonarr.html">SonarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../radarr.html">RadarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readarr.html">ReadarrAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lidarr.html">LidarrAPI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyarr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pyarr.lidarr</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyarr.lidarr</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseArrAPI</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">PAGE</span><span class="p">,</span> <span class="n">PAGE_SIZE</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">PyarrError</span><span class="p">,</span> <span class="n">PyarrMissingProfile</span>
+
+
+<div class="viewcode-block" id="LidarrSortKeys"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrSortKeys">[docs]</a><span class="k">class</span> <span class="nc">LidarrSortKeys</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lidarr sort keys.&quot;&quot;&quot;</span>
+
+    <span class="n">ALBUM_TITLE</span> <span class="o">=</span> <span class="s2">&quot;albums.title&quot;</span>
+    <span class="n">ARTIST_ID</span> <span class="o">=</span> <span class="s2">&quot;artistId&quot;</span>
+    <span class="n">DATE</span> <span class="o">=</span> <span class="s2">&quot;date&quot;</span>
+    <span class="n">DOWNLOAD_CLIENT</span> <span class="o">=</span> <span class="s2">&quot;downloadClient&quot;</span>
+    <span class="n">ID</span> <span class="o">=</span> <span class="s2">&quot;id&quot;</span>
+    <span class="n">INDEXER</span> <span class="o">=</span> <span class="s2">&quot;indexer&quot;</span>
+    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message&quot;</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s2">&quot;path&quot;</span>
+    <span class="n">PROGRESS</span> <span class="o">=</span> <span class="s2">&quot;progress&quot;</span>
+    <span class="n">PROTOCOL</span> <span class="o">=</span> <span class="s2">&quot;protocol&quot;</span>
+    <span class="n">QUALITY</span> <span class="o">=</span> <span class="s2">&quot;quality&quot;</span>
+    <span class="n">RATINGS</span> <span class="o">=</span> <span class="s2">&quot;ratings&quot;</span>
+    <span class="n">RELEASE_DATE</span> <span class="o">=</span> <span class="s2">&quot;albums.releaseDate&quot;</span>
+    <span class="n">SOURCE_TITLE</span> <span class="o">=</span> <span class="s2">&quot;sourcetitle&quot;</span>
+    <span class="n">STATUS</span> <span class="o">=</span> <span class="s2">&quot;status&quot;</span>
+    <span class="n">TIMELEFT</span> <span class="o">=</span> <span class="s2">&quot;timeleft&quot;</span>
+    <span class="n">TITLE</span> <span class="o">=</span> <span class="s2">&quot;title&quot;</span></div>
+
+
+<div class="viewcode-block" id="LidarrArtistMonitor"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrArtistMonitor">[docs]</a><span class="k">class</span> <span class="nc">LidarrArtistMonitor</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lidarr Monitor types for an artist music&quot;&quot;&quot;</span>
+
+    <span class="n">ALL_ALBUMS</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+    <span class="n">FUTURE_ALBUMS</span> <span class="o">=</span> <span class="s2">&quot;future&quot;</span>
+    <span class="n">MISSING_ALBUMS</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span>
+    <span class="n">EXISTING_ALBUMS</span> <span class="o">=</span> <span class="s2">&quot;existing&quot;</span>
+    <span class="n">FIRST_ALBUM</span> <span class="o">=</span> <span class="s2">&quot;first&quot;</span>
+    <span class="n">LATEST_ALBUM</span> <span class="o">=</span> <span class="s2">&quot;latest&quot;</span></div>
+
+
+<div class="viewcode-block" id="LidarrAPI"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI">[docs]</a><span class="k">class</span> <span class="nc">LidarrAPI</span><span class="p">(</span><span class="n">BaseArrAPI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;API wrapper for Lidarr endpoints.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        RequestAPI (:obj:`str`): provides connection to API endpoint</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise Lidarr API</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            host_url (str): URL for Lidarr</span>
+<span class="sd">            api_key (str): API key for Lidarr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ver_uri</span> <span class="o">=</span> <span class="s2">&quot;/v1&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">host_url</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">ver_uri</span><span class="p">)</span>
+
+    <span class="c1"># POST /rootfolder</span>
+<div class="viewcode-block" id="LidarrAPI.add_root_folder"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.add_root_folder">[docs]</a>    <span class="k">def</span> <span class="nf">add_root_folder</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">defaultTags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">qualityProfile</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">metadataProfile</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a root folder</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): Name for this root folder</span>
+<span class="sd">            path (str): Location the files should be stored</span>
+<span class="sd">            defaultTags (List[int]): list of default tag IDs</span>
+<span class="sd">            qualityProfile (int): default quality profile ID</span>
+<span class="sd">            metadataProfile (int): default metadata profile ID</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">folder_json</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;defaultTags&quot;</span><span class="p">:</span> <span class="n">defaultTags</span><span class="p">,</span>
+            <span class="s2">&quot;defaultQualityProfileId&quot;</span><span class="p">:</span> <span class="n">qualityProfile</span><span class="p">,</span>
+            <span class="s2">&quot;defaultMetadataProfileId&quot;</span><span class="p">:</span> <span class="n">metadataProfile</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="s2">&quot;rootfolder&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">folder_json</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.lookup"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.lookup">[docs]</a>    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search for an artist / album / song</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            term (str): Search term</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">term</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.get_artist"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_artist">[docs]</a>    <span class="k">def</span> <span class="nf">get_artist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get an artist by ID or get all artists</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (str | int | None, optional): Artist ID. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">id_</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;artist</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mbId&quot;</span><span class="p">:</span> <span class="n">id_</span><span class="p">}</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_artist_json</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">quality_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">monitored</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">artist_monitor</span><span class="p">:</span> <span class="n">LidarrArtistMonitor</span> <span class="o">=</span> <span class="n">LidarrArtistMonitor</span><span class="o">.</span><span class="n">ALL_ALBUMS</span><span class="p">,</span>
+        <span class="n">artist_search_for_missing_albums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;method to help build the JSON for adding an artist</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            term (str): Search term for artist</span>
+<span class="sd">            root_dir (str): root directory for music</span>
+<span class="sd">            quality_profile_id (Union[int, None], optional): Quality profile Id. Defaults to None.</span>
+<span class="sd">            metadata_profile_id (Union[int, None], optional): Metadata profile ID. Defaults to None.</span>
+<span class="sd">            monitored (bool, optional): Should this be monitored. Defaults to True.</span>
+<span class="sd">            artist_monitor (LidarrArtistMonitor, optional): should the artist be monitored. Defaults to LidarrArtistMonitor.ALL_ALBUMS.</span>
+<span class="sd">            artist_search_for_missing_albums (bool, optional): should we search for missing albums. Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            PyarrMissingProfile: Raised when quality or metadata profile are missing</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">quality_profile_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">quality_profile_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_quality_profile</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PyarrMissingProfile</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no Quality Profile setup&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">exception</span>
+        <span class="k">if</span> <span class="n">metadata_profile_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">metadata_profile_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_metadata_profile</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PyarrMissingProfile</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no Metadata Profile setup&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">exception</span>
+
+        <span class="n">artist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_artist</span><span class="p">(</span><span class="n">term</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;metadataProfileId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_profile_id</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;qualityProfileId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_profile_id</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;rootFolderPath&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">root_dir</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;addOptions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;monitor&quot;</span><span class="p">:</span> <span class="n">artist_monitor</span><span class="p">,</span>
+            <span class="s2">&quot;searchForMissingAlbums&quot;</span><span class="p">:</span> <span class="n">artist_search_for_missing_albums</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;monitored&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">monitored</span>
+
+        <span class="k">return</span> <span class="n">artist</span>
+
+<div class="viewcode-block" id="LidarrAPI.add_artist"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.add_artist">[docs]</a>    <span class="k">def</span> <span class="nf">add_artist</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">search_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">quality_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">monitored</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">artist_monitor</span><span class="p">:</span> <span class="n">LidarrArtistMonitor</span> <span class="o">=</span> <span class="n">LidarrArtistMonitor</span><span class="o">.</span><span class="n">ALL_ALBUMS</span><span class="p">,</span>
+        <span class="n">artist_search_for_missing_albums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds an artist based on a search term, must be artist name or album/single</span>
+<span class="sd">        by lidarr guid</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            search_term (str): Artist name or album/single</span>
+<span class="sd">            root_dir (str): Directory for music to be stored</span>
+<span class="sd">            quality_profile_id (Union[int, None], optional): Quality profile id. Defaults to None.</span>
+<span class="sd">            metadata_profile_id (Union[int, None], optional): Metadata profile id_. Defaults to None.</span>
+<span class="sd">            monitored (bool, optional): monitor the artist. Defaults to True.</span>
+<span class="sd">            artist_monitor (LidarrArtistMonitor, optional): [description]. Defaults to LidarrArtistMonitor.ALL_ALBUMS.</span>
+<span class="sd">            artist_search_for_missing_albums (bool, optional): Search for missing albums by this artist. Defaults to False</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">artist_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artist_json</span><span class="p">(</span>
+            <span class="n">search_term</span><span class="p">,</span>
+            <span class="n">root_dir</span><span class="p">,</span>
+            <span class="n">quality_profile_id</span><span class="p">,</span>
+            <span class="n">metadata_profile_id</span><span class="p">,</span>
+            <span class="n">monitored</span><span class="p">,</span>
+            <span class="n">artist_monitor</span><span class="p">,</span>
+            <span class="n">artist_search_for_missing_albums</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="s2">&quot;artist&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">artist_json</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.upd_artist"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.upd_artist">[docs]</a>    <span class="k">def</span> <span class="nf">upd_artist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update an existing artist</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            To be used in conjunction with get_artist()</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (json): JSON data for the artist record</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="s2">&quot;artist&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.delete_artist"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.delete_artist">[docs]</a>    <span class="k">def</span> <span class="nf">delete_artist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete an artist with the provided ID</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Artist ID to be deleted</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;artist/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.lookup_artist"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.lookup_artist">[docs]</a>    <span class="k">def</span> <span class="nf">lookup_artist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search for an Artist to add to the database</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            term (str): search term to use for lookup</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;artist/lookup&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">term</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.get_album"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_album">[docs]</a>    <span class="k">def</span> <span class="nf">get_album</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">albumIds</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">artistId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">foreignAlbumId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">allArtistAlbums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a specific album by ID, or get all albums</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            albumIds (int | List[int] | None, optional): database album ids. Defaults to None.</span>
+<span class="sd">            artistId (int | None, optional): database artist ids. Defaults to None.</span>
+<span class="sd">            foreignAlbumId (int | None, optional): foreign album id. Defaults to None.</span>
+<span class="sd">            allArtistAlbums (bool, optional): get all artists albums. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;includeAllArtistAlbums&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">allArtistAlbums</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">albumIds</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumIds</span>
+        <span class="k">if</span> <span class="n">artistId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;artistId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">artistId</span>
+        <span class="k">if</span> <span class="n">foreignAlbumId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;foreignAlbumId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">foreignAlbumId</span>
+        <span class="n">_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">albumIds</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="n">albumIds</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">albumIds</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;album</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_album_json</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">quality_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">monitored</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">artist_monitor</span><span class="p">:</span> <span class="n">LidarrArtistMonitor</span> <span class="o">=</span> <span class="n">LidarrArtistMonitor</span><span class="o">.</span><span class="n">ALL_ALBUMS</span><span class="p">,</span>
+        <span class="n">artist_search_for_missing_albums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;method to help build the JSON for adding an album</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            term (str): Search term for the album</span>
+<span class="sd">            root_dir (str): Director to store the album.</span>
+<span class="sd">            quality_profile_id (Union[int, None], optional): quality profile id. Defaults to None.</span>
+<span class="sd">            metadata_profile_id (Union[int, None], optional): metadata profile id. Defaults to None.</span>
+<span class="sd">            monitored (bool, optional): monitor the albums. Defaults to True.</span>
+<span class="sd">            artist_monitor (LidarrArtistMonitor, optional): monitor the artist. Defaults to LidarrArtistMonitor.ALL_ALBUMS.</span>
+<span class="sd">            artist_search_for_missing_albums (bool, optional): search for missing albums by the artist. Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            PyarrMissingProfile: Error if there are no quality or metadata profiles that match</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">quality_profile_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">quality_profile_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_quality_profile</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PyarrMissingProfile</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no Quality Profile setup&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">exception</span>
+        <span class="k">if</span> <span class="n">metadata_profile_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">metadata_profile_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_metadata_profile</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PyarrMissingProfile</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no Metadata Profile setup&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">exception</span>
+
+        <span class="n">artist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_artist</span><span class="p">(</span><span class="n">term</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;metadataProfileId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_profile_id</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;qualityProfileId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_profile_id</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;rootFolderPath&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">root_dir</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;addOptions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;monitor&quot;</span><span class="p">:</span> <span class="n">artist_monitor</span><span class="p">,</span>
+            <span class="s2">&quot;searchForMissingAlbums&quot;</span><span class="p">:</span> <span class="n">artist_search_for_missing_albums</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">artist</span><span class="p">[</span><span class="s2">&quot;monitored&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">monitored</span>
+
+        <span class="k">return</span> <span class="n">artist</span>
+
+<div class="viewcode-block" id="LidarrAPI.add_album"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.add_album">[docs]</a>    <span class="k">def</span> <span class="nf">add_album</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">search_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">quality_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata_profile_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">monitored</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">artist_monitor</span><span class="p">:</span> <span class="n">LidarrArtistMonitor</span> <span class="o">=</span> <span class="n">LidarrArtistMonitor</span><span class="o">.</span><span class="n">ALL_ALBUMS</span><span class="p">,</span>
+        <span class="n">artist_search_for_missing_albums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds an album to Lidarr</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            search_term (str): name of the album to search for</span>
+<span class="sd">            root_dir (str): location to store music</span>
+<span class="sd">            quality_profile_id (Union[int, None], optional): Quality profile Id. Defaults to None.</span>
+<span class="sd">            metadata_profile_id (Union[int, None], optional): Metadata profile Id. Defaults to None.</span>
+<span class="sd">            monitored (bool, optional): should the album be monitored. Defaults to True.</span>
+<span class="sd">            artist_monitor (LidarrArtistMonitor, optional): what level to monitor the artist. Defaults to LidarrArtistMonitor.ALL_ALBUMS.</span>
+<span class="sd">            artist_search_for_missing_albums (bool, optional): search for any missing albums by this artist. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">album_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_album_json</span><span class="p">(</span>
+            <span class="n">search_term</span><span class="p">,</span>
+            <span class="n">root_dir</span><span class="p">,</span>
+            <span class="n">quality_profile_id</span><span class="p">,</span>
+            <span class="n">metadata_profile_id</span><span class="p">,</span>
+            <span class="n">monitored</span><span class="p">,</span>
+            <span class="n">artist_monitor</span><span class="p">,</span>
+            <span class="n">artist_search_for_missing_albums</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_post</span><span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">album_json</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.upd_album"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.upd_album">[docs]</a>    <span class="k">def</span> <span class="nf">upd_album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update an album</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (json): data ti update albums</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            To be used in conjunction with get_album()</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.delete_album"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.delete_album">[docs]</a>    <span class="k">def</span> <span class="nf">delete_album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete an album with the provided ID</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int): Album ID to be deleted</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;album/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LidarrAPI.lookup_album"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.lookup_album">[docs]</a>    <span class="k">def</span> <span class="nf">lookup_album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search for an Album to add to the database</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            term (str): search term to use for lookup</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;album/lookup&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">term</span><span class="p">})</span></div>
+
+    <span class="c1"># POST /command</span>
+<div class="viewcode-block" id="LidarrAPI.post_command"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.post_command">[docs]</a>    <span class="k">def</span> <span class="nf">post_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This function is not implemented</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: Error</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This feature is not implemented yet.&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /wanted</span>
+<div class="viewcode-block" id="LidarrAPI.get_wanted"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_wanted">[docs]</a>    <span class="k">def</span> <span class="nf">get_wanted</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">id_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_key</span><span class="p">:</span> <span class="n">LidarrSortKeys</span> <span class="o">=</span> <span class="n">LidarrSortKeys</span><span class="o">.</span><span class="n">TITLE</span><span class="p">,</span>
+        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PAGE</span><span class="p">,</span>
+        <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PAGE_SIZE</span><span class="p">,</span>
+        <span class="n">sort_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;asc&quot;</span><span class="p">,</span>
+        <span class="n">missing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get wanted albums that are missing or not meeting cutoff</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int | None, optional): Specific album ID to return. Defaults to None.</span>
+<span class="sd">            sort_key (LidarrSortKeys, optional): id, title, ratings or quality. Defaults to LidarrSortKeys.TITLE.</span>
+<span class="sd">            page (int, optional): Page number to return. Defaults to 1.</span>
+<span class="sd">            page_size (int, optional): Number of items per page. Defaults to 10.</span>
+<span class="sd">            sort_dir (str, optional): Sort ascending or descending. Defaults to &quot;asc&quot;.</span>
+<span class="sd">            missing (bool, optional): search for missing (True) or cutoff not met (False). Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;sortKey&quot;</span><span class="p">:</span> <span class="n">sort_key</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="n">page_size</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">_path</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span> <span class="k">if</span> <span class="n">missing</span> <span class="k">else</span> <span class="s2">&quot;cutoff&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;wanted/</span><span class="si">{</span><span class="n">_path</span><span class="si">}{</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">id_</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s1">&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># GET /parse</span>
+<div class="viewcode-block" id="LidarrAPI.get_parse"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_parse">[docs]</a>    <span class="k">def</span> <span class="nf">get_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the music / artist with a matching filename</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            title (str): file</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;parse&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">})</span></div>
+
+    <span class="c1"># GET /track</span>
+<div class="viewcode-block" id="LidarrAPI.get_tracks"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">get_tracks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">artistId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">albumId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">albumReleaseId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">trackIds</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get tracks based on provided IDs</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            artistId (int | None, optional): Artist ID. Defaults to None.</span>
+<span class="sd">            albumId (int | None, optional): Album ID. Defaults to None.</span>
+<span class="sd">            albumReleaseId (int | None, optional): Album Release ID. Defaults to None.</span>
+<span class="sd">            trackIds (int | list[int] | None, optional): Track IDs. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">artistId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;artistId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">artistId</span>
+        <span class="k">if</span> <span class="n">albumId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumId</span>
+        <span class="k">if</span> <span class="n">albumReleaseId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumReleaseId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumReleaseId</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trackIds</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;trackIds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trackIds</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;track</span><span class="si">{</span><span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">trackIds</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trackIds</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># GET /trackfile/</span>
+<div class="viewcode-block" id="LidarrAPI.get_track_file"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_track_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_track_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">artistId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">albumId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">trackFileIds</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">unmapped</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get track files based on IDs, or get all unmapped files</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            artistId (Union[int, None], optional): Artist database ID. Defaults to None.</span>
+<span class="sd">            albumId (Union[int, None], optional): Album database ID. Defaults to None.</span>
+<span class="sd">            trackFileIds (Union[int, List[int], None], optional): specific file ids. Defaults to None.</span>
+<span class="sd">            unmapped (bool, optional): get all unmapped filterExistingFiles. Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            PyarrError: where no IDs or unmapped params provided</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">artistId</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">albumId</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">trackFileIds</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">unmapped</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PyarrError</span><span class="p">(</span>
+                <span class="s2">&quot;BadRequest: artistId, albumId, trackFileIds or unmapped must be provided&quot;</span>
+            <span class="p">)</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;unmapped&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">unmapped</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="n">artistId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;artistId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">artistId</span>
+        <span class="k">if</span> <span class="n">albumId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumId</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trackFileIds</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;trackFileIds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trackFileIds</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;trackfile</span><span class="si">{</span><span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">trackFileIds</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trackFileIds</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># PUT /trackfile/{id_}</span>
+<div class="viewcode-block" id="LidarrAPI.upd_track_file"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.upd_track_file">[docs]</a>    <span class="k">def</span> <span class="nf">upd_track_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update an existing track file</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            To be used in conjunction with get_track_file()</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (json): updated data for track files</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="s2">&quot;trackfile&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># DEL /trackfile/{ids_}</span>
+<div class="viewcode-block" id="LidarrAPI.delete_track_file"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.delete_track_file">[docs]</a>    <span class="k">def</span> <span class="nf">delete_track_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;Delete track files. Use integer for one file or list for mass deletion.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ids_ (int | list[int]): single ID or list of IDs for files to delete</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_del</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;trackfile/</span><span class="si">{</span><span class="s1">&#39;bulk&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ids_</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ids_</span><span class="si">}</span><span class="s1">&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;trackFileIds&quot;</span><span class="p">:</span> <span class="n">ids_</span><span class="p">}</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ids_</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># GET /metadataprofile/{id}</span>
+<div class="viewcode-block" id="LidarrAPI.get_metadata_profile"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_metadata_profile">[docs]</a>    <span class="k">def</span> <span class="nf">get_metadata_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets all metadata profiles or specific one with id_</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id_ (int, optional): metadata profile id from database. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">id_</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;metadataprofile</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1"># POST /metadataprofile</span>
+<div class="viewcode-block" id="LidarrAPI.add_metadata_profile"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.add_metadata_profile">[docs]</a>    <span class="k">def</span> <span class="nf">add_metadata_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This function is not implemented</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: Error</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This feature is not implemented yet.&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># PUT /metadataprofile</span>
+<div class="viewcode-block" id="LidarrAPI.upd_metadata_profile"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.upd_metadata_profile">[docs]</a>    <span class="k">def</span> <span class="nf">upd_metadata_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update a metadata profile</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (json): data containing metadata profile and changes</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="s2">&quot;metadataprofile&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /config/metadataProvider</span>
+<div class="viewcode-block" id="LidarrAPI.get_metadata_provider"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_metadata_provider">[docs]</a>    <span class="k">def</span> <span class="nf">get_metadata_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get metadata provider config (settings/metadata)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;config/metadataProvider&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">)</span></div>
+
+    <span class="c1"># PUT /config/metadataprovider</span>
+<div class="viewcode-block" id="LidarrAPI.upd_metadata_provider"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.upd_metadata_provider">[docs]</a>    <span class="k">def</span> <span class="nf">upd_metadata_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update metadata provider by providing json data update</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            To be used in conjunction with get_metadata_provider()</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (json): configuration data as json</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="s2">&quot;config/metadataProvider&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /queue</span>
+<div class="viewcode-block" id="LidarrAPI.get_queue"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_queue">[docs]</a>    <span class="k">def</span> <span class="nf">get_queue</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PAGE</span><span class="p">,</span>
+        <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PAGE_SIZE</span><span class="p">,</span>
+        <span class="n">sort_key</span><span class="p">:</span> <span class="n">LidarrSortKeys</span> <span class="o">=</span> <span class="n">LidarrSortKeys</span><span class="o">.</span><span class="n">TIMELEFT</span><span class="p">,</span>
+        <span class="n">unknown_artists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_artist</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_album</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the queue of download_release</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            page (int, optional): Which page to load. Defaults to 1.</span>
+<span class="sd">            page_size (int, optional): Number of items per page. Defaults to 10.</span>
+<span class="sd">            sort_key (LidarrSortKeys, optional): Key to sort by. Defaults to LidarrSortKeys.TIMELEFT.</span>
+<span class="sd">            unknown_artists (bool, optional): include unknown artists. Defaults to False.</span>
+<span class="sd">            include_artist (bool, optional): Include Artists. Defaults to False.</span>
+<span class="sd">            include_album (bool, optional): Include albums. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="n">page_size</span><span class="p">,</span>
+            <span class="s2">&quot;sortKey&quot;</span><span class="p">:</span> <span class="n">sort_key</span><span class="p">,</span>
+            <span class="s2">&quot;unknownArtists&quot;</span><span class="p">:</span> <span class="n">unknown_artists</span><span class="p">,</span>
+            <span class="s2">&quot;includeAlbum&quot;</span><span class="p">:</span> <span class="n">include_album</span><span class="p">,</span>
+            <span class="s2">&quot;includeArtist&quot;</span><span class="p">:</span> <span class="n">include_artist</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;queue&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /queue/details</span>
+<div class="viewcode-block" id="LidarrAPI.get_queue_details"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_queue_details">[docs]</a>    <span class="k">def</span> <span class="nf">get_queue_details</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">artistId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">albumIds</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_artist</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_album</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get queue details for artist or album</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            artistId (Union[int, None], optional): Artist database ID. Defaults to None.</span>
+<span class="sd">            albumIds (Union[List[int], None], optional): Album database ID. Defaults to None.</span>
+<span class="sd">            include_artist (bool, optional): Include the artist. Defaults to False.</span>
+<span class="sd">            include_album (bool, optional): Include the album. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;includeArtist&quot;</span><span class="p">:</span> <span class="n">include_artist</span><span class="p">,</span>
+            <span class="s2">&quot;includeAlbum&quot;</span><span class="p">:</span> <span class="n">include_album</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">artistId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;artistId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">artistId</span>
+        <span class="k">if</span> <span class="n">albumIds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumIds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumIds</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;queue/details&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /release</span>
+<div class="viewcode-block" id="LidarrAPI.get_release"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_release">[docs]</a>    <span class="k">def</span> <span class="nf">get_release</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">artistId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">albumId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search indexers for specified fields.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            artistId (Union[int, None], optional): Artist ID from DB. Defaults to None.</span>
+<span class="sd">            albumId (Union[int, None], optional): Album IT from Database. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">artistId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;artistId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">artistId</span>
+        <span class="k">if</span> <span class="n">albumId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;artistId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumId</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;release&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /rename</span>
+<div class="viewcode-block" id="LidarrAPI.get_rename"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_rename">[docs]</a>    <span class="k">def</span> <span class="nf">get_rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artistId</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">albumId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get files matching specified id that are not properly renamed yet.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            artistId (int): Database ID for Artists</span>
+<span class="sd">            albumId (Union[int, None], optional): Album ID. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;artistId&quot;</span><span class="p">:</span> <span class="n">artistId</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">albumId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumId</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span>
+            <span class="s2">&quot;rename&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># GET /manualimport</span>
+<div class="viewcode-block" id="LidarrAPI.get_manual_import"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_manual_import">[docs]</a>    <span class="k">def</span> <span class="nf">get_manual_import</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">downloadId</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">artistId</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">folder</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">filterExistingFiles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">replaceExistingFiles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets a manual import list</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            downloadId (str): Download IDs</span>
+<span class="sd">            artistId (int, optional): Artist Database ID. Defaults to 0.</span>
+<span class="sd">            folder (Union[str, None], optional): folder name. Defaults to None.</span>
+<span class="sd">            filterExistingFiles (bool, optional): filter files. Defaults to True.</span>
+<span class="sd">            replaceExistingFiles (bool, optional): replace files. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;artistId&quot;</span><span class="p">:</span> <span class="n">artistId</span><span class="p">,</span>
+            <span class="s2">&quot;downloadId&quot;</span><span class="p">:</span> <span class="n">downloadId</span><span class="p">,</span>
+            <span class="s2">&quot;filterExistingFiles&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">filterExistingFiles</span><span class="p">),</span>
+            <span class="s2">&quot;folder&quot;</span><span class="p">:</span> <span class="n">folder</span> <span class="k">if</span> <span class="n">folder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;replaceExistingFiles&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">replaceExistingFiles</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span><span class="s2">&quot;manualimport&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="c1"># PUT /manualimport</span>
+<div class="viewcode-block" id="LidarrAPI.upd_manual_import"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.upd_manual_import">[docs]</a>    <span class="k">def</span> <span class="nf">upd_manual_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update a manual import</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            To be used in conjunction with get_manual_import()</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (json): json data containing changes</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_put</span><span class="p">(</span><span class="s2">&quot;manualimport&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="c1"># GET /retag</span>
+<div class="viewcode-block" id="LidarrAPI.get_retag"><a class="viewcode-back" href="../../lidarr.html#pyarr.lidarr.LidarrAPI.get_retag">[docs]</a>    <span class="k">def</span> <span class="nf">get_retag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artistId</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">albumId</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get Retag</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            artistId (int): ID for the  artist</span>
+<span class="sd">            albumId Union[int, None], optional): ID foir the album. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            JSON: Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;artistId&quot;</span><span class="p">:</span> <span class="n">artistId</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">albumId</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;albumId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">albumId</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_get</span><span class="p">(</span>
+            <span class="s2">&quot;retag&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ver_uri</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Steven Marks, TotalDebug.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

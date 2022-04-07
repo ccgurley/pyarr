@@ -403,13 +403,23 @@ class LidarrAPI(BaseArrAPI):
         return self.request_get("album/lookup", self.ver_uri, params={"term": term})
 
     # POST /command
-    def post_command(self):
-        """This function is not implemented
-
-        Raises:
-            NotImplementedError: Error
+    def post_command(self, name, **kwargs):
+        """Performs any of the predetermined Lidarr command routines.
+        Note:
+            For command names and kwargs:
+            See https://lidarr.audio/docs/api/
+        Args:
+            name (str): Name of the command to be run
+            **kwargs: additional parameters for specific commands
+        Returns:
+            JSON: Array
         """
-        raise NotImplementedError("This feature is not implemented yet.")
+        data = {
+            "name": name,
+            **kwargs,
+        }
+        path = "command"
+        return self.request_post(path, self.ver_uri, data=data)
 
     # GET /wanted
     def get_wanted(
